@@ -62,6 +62,13 @@ const t = STR[DEFAULT_LANG];
     color: #fff;
     letter-spacing: -0.02em;
   }
+  /* Keep the heading on a single line while the band is horizontal;
+     below 640px the band stacks and the title wraps normally. */
+  @media (min-width: 641px) {
+    .band__title {
+      white-space: nowrap;
+    }
+  }
   .band__body {
     margin-top: 12px;
     font-size: var(--text-lg);
