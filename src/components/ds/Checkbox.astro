@@ -1,0 +1,67 @@
+---
+/**
+ * Design-system Checkbox — custom brand check, accessible native input.
+ */
+interface Props {
+  label: string;
+  labelKey?: string;
+  name: string;
+  checked?: boolean;
+}
+
+const { label, labelKey, name, checked = false } = Astro.props;
+const id = `field-${name}`;
+---
+
+<label class="ds-check" for={id}>
+  <input id={id} name={name} type="checkbox" class="ds-check__input" checked={checked} />
+  <span class="ds-check__box" aria-hidden="true">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 6 9 17l-5-5"></path>
+    </svg>
+  </span>
+  <span class="ds-check__label" data-i18n={labelKey}>{label}</span>
+</label>
+
+<style>
+  .ds-check {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .ds-check__input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  .ds-check__box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 20px;
+    height: 20px;
+    margin-top: 1px;
+    border: 1.5px solid var(--border-default);
+    border-radius: var(--radius-xs);
+    background: var(--surface-page);
+    color: transparent;
+    transition: var(--transition-base);
+  }
+  .ds-check__input:checked + .ds-check__box {
+    background: var(--color-brand);
+    border-color: var(--color-brand);
+    color: #fff;
+  }
+  .ds-check__input:focus-visible + .ds-check__box {
+    box-shadow: var(--ring-brand);
+  }
+  .ds-check__label {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
+</style>

@@ -1,0 +1,125 @@
+---
+/**
+ * Footer — reversed logo + tagline, contact column, services column, and a
+ * bottom bar with copyright and hours.
+ */
+import { Icon } from 'astro-icon/components';
+import { STR, DEFAULT_LANG } from '../i18n/strings';
+
+const t = STR[DEFAULT_LANG];
+---
+
+<footer class="footer">
+  <div class="container footer__grid nab-3col" data-stagger>
+    <div data-reveal>
+      <img src="/assets/nab-logo-white.svg" alt="NAB Financial Consulting" height="46" class="footer__logo" />
+      <p class="footer__tagline" data-i18n="footTagline">{t.footTagline}</p>
+    </div>
+
+    <div data-reveal>
+      <div class="footer__h" data-i18n="footContactH">{t.footContactH}</div>
+      <div class="footer__row">
+        <Icon name="lucide:map-pin" width={22} height={22} class="footer__icon" />
+        <span>450 N Sam Houston Pkwy E, Suite 130<br />Houston, TX 77060</span>
+      </div>
+      <div class="footer__row">
+        <Icon name="lucide:phone" width={22} height={22} class="footer__icon" />
+        <a href="tel:+18328010188">(832) 801-0188</a>
+      </div>
+      <div class="footer__row">
+        <Icon name="lucide:mail" width={22} height={22} class="footer__icon" />
+        <a href="mailto:contacto@nabtaxservices.com">contacto@nabtaxservices.com</a>
+      </div>
+    </div>
+
+    <div data-reveal>
+      <div class="footer__h" data-i18n="footServicesH">{t.footServicesH}</div>
+      {
+        t.footServiceLinks.map((l, i) => (
+          <a class="footer__link" href="#servicios" data-i18n={`footServiceLinks.${i}`}>
+            {l}
+          </a>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="footer__bar">
+    <div class="container footer__bar-inner">
+      <span data-i18n="footRights">{t.footRights}</span>
+      <span data-i18n="footHours">{t.footHours}</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--surface-inverse);
+    color: rgba(255, 255, 255, 0.72);
+  }
+  .footer__grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: var(--space-9);
+    padding-top: var(--space-11);
+    padding-bottom: var(--space-8);
+  }
+  .footer__logo {
+    height: 46px;
+    width: auto;
+    margin-bottom: 16px;
+  }
+  .footer__tagline {
+    max-width: 38ch;
+    line-height: 1.6;
+  }
+  .footer__h {
+    color: #fff;
+    font-size: var(--text-sm);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .footer__row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: var(--text-base);
+    line-height: 1.5;
+  }
+  .footer__row :global(.footer__icon) {
+    color: var(--green-400);
+    flex: none;
+  }
+  .footer__row a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .footer__row a:hover {
+    color: #fff;
+  }
+  .footer__link {
+    color: rgba(255, 255, 255, 0.72);
+    text-decoration: none;
+    display: block;
+    margin-bottom: 10px;
+    font-size: var(--text-base);
+  }
+  .footer__link:hover {
+    color: #fff;
+  }
+  .footer__bar {
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  .footer__bar-inner {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: var(--text-sm);
+  }
+</style>

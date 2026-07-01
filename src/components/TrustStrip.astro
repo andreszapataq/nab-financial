@@ -1,0 +1,54 @@
+---
+/**
+ * Dark trust strip — four staggered stats over near-black ink.
+ */
+import { STR, DEFAULT_LANG } from '../i18n/strings';
+
+const t = STR[DEFAULT_LANG];
+---
+
+<section class="trust">
+  <div class="container trust__grid nab-4col" data-stagger>
+    {
+      t.trust.map(([value, label], i) => (
+        <div class="trust__item" data-reveal>
+          <span class="trust__value" data-i18n={`trust.${i}.0`}>{value}</span>
+          <span class="trust__label" data-i18n={`trust.${i}.1`}>{label}</span>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .trust {
+    background: var(--surface-inverse);
+    color: #fff;
+  }
+  .trust__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-7);
+    text-align: center;
+    padding-top: var(--space-9);
+    padding-bottom: var(--space-9);
+  }
+  .trust__item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: center;
+  }
+  .trust__value {
+    font-size: var(--text-4xl);
+    font-weight: var(--weight-extra);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: #fff;
+  }
+  .trust__label {
+    font-size: var(--text-sm);
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 600;
+  }
+</style>

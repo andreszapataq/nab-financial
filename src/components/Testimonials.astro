@@ -1,0 +1,114 @@
+---
+/**
+ * Testimonials — centered header + 3 review cards with stars, quote and
+ * initials avatar.
+ */
+import { Icon } from 'astro-icon/components';
+import { STR, DEFAULT_LANG } from '../i18n/strings';
+
+const t = STR[DEFAULT_LANG];
+---
+
+<section id="opiniones" class="voices container">
+  <div class="voices__head" data-stagger>
+    <span class="nab-eyebrow" data-reveal>
+      <span class="nab-chevron"></span><span data-i18n="voicesEyebrow">{t.voicesEyebrow}</span>
+    </span>
+    <h2 data-reveal data-i18n="voicesTitle">{t.voicesTitle}</h2>
+  </div>
+
+  <div class="voices__grid nab-3col" data-stagger>
+    {
+      t.testimonials.map((tt, i) => (
+        <div data-reveal>
+          <article class="voice">
+            <div class="voice__stars" aria-hidden="true">
+              {Array.from({ length: 5 }).map(() => <Icon name="lucide:star" width={16} height={16} class="star" />)}
+            </div>
+            <p class="voice__quote">“<span data-i18n={`testimonials.${i}.quote`}>{tt.quote}</span>”</p>
+            <div class="voice__person">
+              <span class="voice__avatar" data-i18n={`testimonials.${i}.initials`}>{tt.initials}</span>
+              <div>
+                <div class="voice__name" data-i18n={`testimonials.${i}.name`}>{tt.name}</div>
+                <div class="voice__role" data-i18n={`testimonials.${i}.role`}>{tt.role}</div>
+              </div>
+            </div>
+          </article>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .voices {
+    padding-top: var(--space-12);
+    padding-bottom: var(--space-12);
+  }
+  .voices__head {
+    max-width: 640px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .voices__head h2 {
+    font-size: var(--text-3xl);
+    margin-top: 12px;
+  }
+  .voices__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+    margin-top: var(--space-9);
+  }
+  .voice {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    height: 100%;
+    background: var(--surface-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: var(--space-7);
+  }
+  .voice__stars {
+    display: flex;
+    gap: 2px;
+  }
+  .voice__stars :global(.star) {
+    color: #e8a317;
+    fill: #e8a317;
+  }
+  .voice__quote {
+    font-size: var(--text-md);
+    line-height: 1.55;
+    color: var(--text-primary);
+  }
+  .voice__person {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: auto;
+  }
+  .voice__avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    flex: none;
+    border-radius: 50%;
+    background: var(--surface-brand-subtle);
+    color: var(--green-700);
+    font-weight: 800;
+    font-size: 16px;
+  }
+  .voice__name {
+    font-weight: 700;
+    font-size: var(--text-sm);
+  }
+  .voice__role {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+</style>

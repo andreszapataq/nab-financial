@@ -1,0 +1,79 @@
+---
+/**
+ * Design-system Select — label above, chevron affordance, brand focus ring.
+ */
+import { Icon } from 'astro-icon/components';
+import type { Option } from '../../i18n/strings';
+
+interface Props {
+  label: string;
+  labelKey?: string;
+  name: string;
+  options: Option[];
+  defaultValue?: string;
+}
+
+const { label, labelKey, name, options, defaultValue } = Astro.props;
+const id = `field-${name}`;
+---
+
+<div class="ds-field">
+  <label class="ds-field__label" for={id} data-i18n={labelKey}>{label}</label>
+  <div class="ds-select">
+    <select id={id} name={name} class="ds-select__input">
+      {
+        options.map((o, i) => (
+          <option value={o.value} selected={o.value === defaultValue} data-i18n={`modalOptions.${i}.label`}>
+            {o.label}
+          </option>
+        ))
+      }
+    </select>
+    <Icon class="ds-select__chevron" name="lucide:chevron-down" width={18} height={18} aria-hidden="true" />
+  </div>
+</div>
+
+<style>
+  .ds-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .ds-field__label {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+  .ds-select {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  .ds-select__input {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 100%;
+    height: 46px;
+    padding: 0 40px 0 14px;
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    color: var(--text-primary);
+    background: var(--surface-page);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: border-color var(--duration-base) var(--ease-out),
+      box-shadow var(--duration-base) var(--ease-out);
+  }
+  .ds-select__input:focus {
+    outline: none;
+    border-color: var(--color-brand);
+    box-shadow: var(--ring-brand);
+  }
+  .ds-select__chevron {
+    position: absolute;
+    right: 12px;
+    color: var(--text-muted);
+    pointer-events: none;
+  }
+</style>

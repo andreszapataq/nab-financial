@@ -1,0 +1,98 @@
+/* ============================================================
+   NAB Financial — Color tokens
+   Brand: primary green #00a550, secondary teal #2d8a88, black
+   ============================================================ */
+:root {
+  /* ---- Brand green (primary) ---- */
+  --green-50:  #e9f9f0;
+  --green-100: #c7f0d8;
+  --green-200: #8fe0b1;
+  --green-300: #4fcd86;
+  --green-400: #1bb866;
+  --green-500: #00a550; /* ◆ brand primary */
+  --green-600: #008944;
+  --green-700: #006c36;
+  --green-800: #00522a;
+  --green-900: #093f23;
+
+  /* ---- Teal (secondary) ---- */
+  --teal-50:  #e7f3f3;
+  --teal-100: #c5e3e2;
+  --teal-200: #93c9c7;
+  --teal-300: #5fadab;
+  --teal-400: #3a9795;
+  --teal-500: #2d8a88; /* ◆ brand secondary */
+  --teal-600: #246e6d;
+  --teal-700: #1d5756;
+  --teal-800: #174443;
+  --teal-900: #123433;
+
+  /* ---- Neutral / ink (cool, faint green-gray) ---- */
+  --neutral-0:   #ffffff;
+  --neutral-50:  #f5f7f6;
+  --neutral-100: #eceeec;
+  --neutral-200: #dde1df;
+  --neutral-300: #c4cac7;
+  --neutral-400: #9aa3a0;
+  --neutral-500: #6e7873;
+  --neutral-600: #4d5651;
+  --neutral-700: #353c39;
+  --neutral-800: #1f2422;
+  --neutral-900: #0b0e0d; /* near-black */
+  --black:       #000000; /* ◆ brand black (logotype) */
+
+  /* ---- Semantic palette ---- */
+  --success-500: #00a550;
+  --success-50:  #e9f9f0;
+  --warning-500: #e0930f;
+  --warning-50:  #fcf3e0;
+  --error-500:   #d64545;
+  --error-50:    #fbeaea;
+  --info-500:    #2d8a88;
+  --info-50:     #e7f3f3;
+
+  /* ============================================================
+     Semantic aliases — reference these in components
+     ============================================================ */
+  --color-brand:          var(--green-500);
+  --color-brand-strong:   var(--green-600);
+  --color-brand-deep:     var(--green-700);
+  --color-accent:         var(--teal-500);
+  --color-accent-strong:  var(--teal-600);
+
+  /* Text */
+  --text-primary:   var(--neutral-900);
+  --text-secondary: var(--neutral-600);
+  --text-muted:     var(--neutral-500);
+  --text-disabled:  var(--neutral-400);
+  --text-inverse:   #ffffff;
+  --text-brand:     var(--green-600);
+  --text-on-brand:  #ffffff;
+
+  /* Surfaces */
+  --surface-page:          #ffffff;
+  --surface-subtle:        var(--neutral-50);
+  --surface-muted:         var(--neutral-100);
+  --surface-card:          #ffffff;
+  --surface-inverse:       var(--neutral-900);
+  --surface-brand:         var(--green-500);
+  --surface-brand-strong:  var(--green-600);
+  --surface-brand-subtle:  var(--green-50);
+  --surface-accent:        var(--teal-500);
+  --surface-accent-subtle: var(--teal-50);
+
+  /* Borders */
+  --border-subtle:  var(--neutral-200);
+  --border-default: var(--neutral-300);
+  --border-strong:  var(--neutral-400);
+  --border-brand:   var(--green-500);
+
+  /* Focus ring */
+  --ring-brand: 0 0 0 3px rgba(0, 165, 80, 0.32);
+  --ring-error: 0 0 0 3px rgba(214, 69, 69, 0.30);
+
+  /* Signature brand gradient (mirrors the logo arrow) */
+  --gradient-arrow: linear-gradient(120deg, var(--green-500) 0%, var(--green-600) 45%, var(--teal-600) 100%);
+  --gradient-brand: linear-gradient(135deg, var(--green-500) 0%, var(--teal-500) 100%);
+  --gradient-ink:   linear-gradient(160deg, #121916 0%, #0b0e0d 100%); /* @kind color */
+}

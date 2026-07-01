@@ -1,0 +1,76 @@
+---
+/**
+ * Base document layout — head metadata, SEO/social tags, LocalBusiness
+ * structured data, global styles and the client island.
+ */
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'NAB Financial Consulting — Impuestos, ITIN, inmigración y notaría en Houston',
+  description = 'Firma bilingüe de impuestos y servicios financieros en Houston, TX. Preparación de impuestos, trámite de ITIN, inmigración, contabilidad, payroll y notaría pública — con atención personal y en español.',
+} = Astro.props;
+
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : Astro.url.href;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'AccountingService',
+  name: 'NAB Financial Consulting LLC',
+  description,
+  image: `${Astro.site ?? ''}assets/nab-logo-cropped.svg`,
+  url: canonical,
+  telephone: '+1-832-801-0188',
+  email: 'contacto@nabtaxservices.com',
+  priceRange: '$$',
+  areaServed: 'Houston, TX',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '450 N Sam Houston Pkwy E, Suite 130',
+    addressLocality: 'Houston',
+    addressRegion: 'TX',
+    postalCode: '77060',
+    addressCountry: 'US',
+  },
+  openingHoursSpecification: {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+    opens: '09:00',
+    closes: '19:00',
+  },
+};
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/assets/nab-mark.svg" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#00a550" />
+
+    <!-- Open Graph / social -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="es_US" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <slot />
+    <script>
+      import '../scripts/app.ts';
+    </script>
+  </body>
+</html>

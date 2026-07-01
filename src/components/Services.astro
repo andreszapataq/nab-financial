@@ -1,0 +1,204 @@
+---
+/**
+ * Services — centered header, a featured highlight (white card + gradient
+ * panel) and a 6-card service grid.
+ */
+import { Icon } from 'astro-icon/components';
+import Button from './ds/Button.astro';
+import ServiceCard from './ds/ServiceCard.astro';
+import { STR, DEFAULT_LANG } from '../i18n/strings';
+
+const t = STR[DEFAULT_LANG];
+---
+
+<section id="servicios" class="section container">
+  <div class="section__head" data-stagger>
+    <span class="nab-eyebrow" data-reveal>
+      <span class="nab-chevron"></span><span data-i18n="servHeadEyebrow">{t.servHeadEyebrow}</span>
+    </span>
+    <h2 data-reveal data-i18n="servHeadTitle">{t.servHeadTitle}</h2>
+    <p data-reveal data-i18n="servHeadBody">{t.servHeadBody}</p>
+  </div>
+
+  <div class="feat nab-2col" data-reveal="scale">
+    <div class="feat__card">
+      <span class="nab-eyebrow">
+        <span class="nab-chevron"></span><span data-i18n="featEyebrow">{t.featEyebrow}</span>
+      </span>
+      <h3 class="feat__title" data-i18n="featTitle">{t.featTitle}</h3>
+      <p class="feat__body" data-i18n="featBody">{t.featBody}</p>
+      <div class="feat__list">
+        <div class="feat__row"><Icon name="lucide:check" width={20} height={20} class="feat__check" /><span data-i18n="featF1">{t.featF1}</span></div>
+        <div class="feat__row"><Icon name="lucide:check" width={20} height={20} class="feat__check" /><span data-i18n="featF2">{t.featF2}</span></div>
+        <div class="feat__row"><Icon name="lucide:check" width={20} height={20} class="feat__check" /><span data-i18n="featF3">{t.featF3}</span></div>
+      </div>
+      <div class="feat__cta">
+        <Button iconRight="arrow-right" data-open-modal>
+          <span data-i18n="featCta">{t.featCta}</span>
+        </Button>
+      </div>
+    </div>
+
+    <div class="feat__panel">
+      <img src="/assets/nab-mark.svg" alt="" class="feat__watermark" data-parallax="0.1" aria-hidden="true" />
+      <div class="feat__badge">
+        <Icon name="lucide:badge-check" width={18} height={18} aria-hidden="true" />
+        <span data-i18n="featBadge">{t.featBadge}</span>
+      </div>
+      <div class="feat__panel-body">
+        <div class="feat__big">100%</div>
+        <div class="feat__sub" data-i18n="featSub">{t.featSub}</div>
+        <p class="feat__panel-text" data-i18n="featPanelBody">{t.featPanelBody}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="svc-grid nab-3col" data-stagger>
+    {
+      t.services.map((s, i) => (
+        <div data-reveal>
+          <ServiceCard
+            icon={s.icon}
+            title={s.title}
+            description={s.desc}
+            accent={s.accent}
+            linkLabel={t.ctaMore}
+            index={i}
+          />
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .section {
+    padding-top: var(--space-12);
+    padding-bottom: var(--space-12);
+  }
+  .section__head {
+    max-width: 640px;
+    margin: 0 auto var(--space-9);
+    text-align: center;
+  }
+  .section__head h2 {
+    font-size: var(--text-3xl);
+    margin-top: 12px;
+  }
+  .section__head p {
+    margin-top: 12px;
+    font-size: var(--text-lg);
+    color: var(--text-secondary);
+  }
+
+  .feat {
+    display: grid;
+    grid-template-columns: 1fr 0.82fr;
+    gap: var(--space-6);
+    margin-bottom: var(--space-6);
+    align-items: stretch;
+  }
+  .feat__card {
+    background: var(--surface-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    padding: var(--space-9);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+  .feat__title {
+    font-size: var(--text-2xl);
+    letter-spacing: -0.015em;
+  }
+  .feat__body {
+    font-size: var(--text-md);
+    color: var(--text-secondary);
+    line-height: var(--leading-relaxed);
+    max-width: 48ch;
+  }
+  .feat__list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 4px;
+  }
+  .feat__row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: var(--text-base);
+    font-weight: 600;
+  }
+  .feat__row :global(.feat__check) {
+    color: var(--color-brand);
+    flex: none;
+  }
+  .feat__cta {
+    margin-top: auto;
+    padding-top: var(--space-4);
+  }
+
+  .feat__panel {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-xl);
+    background: var(--gradient-arrow);
+    color: #fff;
+    padding: var(--space-9);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: var(--shadow-lg);
+    min-height: 320px;
+  }
+  .feat__watermark {
+    position: absolute;
+    right: -34px;
+    bottom: -46px;
+    height: 240px;
+    opacity: 0.16;
+  }
+  .feat__badge {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    align-self: flex-start;
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: var(--radius-pill);
+    padding: 7px 14px;
+    font-size: var(--text-sm);
+    font-weight: 700;
+  }
+  .feat__panel-body {
+    position: relative;
+  }
+  .feat__big {
+    font-size: var(--text-5xl);
+    font-weight: var(--weight-extra);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+  .feat__sub {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    margin-top: 6px;
+    opacity: 0.95;
+  }
+  .feat__panel-text {
+    margin-top: 14px;
+    font-size: var(--text-base);
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 30ch;
+    line-height: 1.5;
+  }
+
+  .svc-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+  }
+</style>

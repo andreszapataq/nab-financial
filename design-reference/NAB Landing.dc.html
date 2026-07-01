@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/nab-financial-design-system-ec36137c-8cb2-421a-b0ad-4bebf811bbbf/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/nab-financial-design-system-ec36137c-8cb2-421a-b0ad-4bebf811bbbf/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/nab-financial-design-system-ec36137c-8cb2-421a-b0ad-4bebf811bbbf/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/nab-financial-design-system-ec36137c-8cb2-421a-b0ad-4bebf811bbbf/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/nab-financial-design-system-ec36137c-8cb2-421a-b0ad-4bebf811bbbf/tokens/radii.css">
+  <link rel="stylesheet" href="_ds/nab-financial-design-system-ec36137c-8cb2-421a-b0ad-4bebf811bbbf/tokens/base.css">
+  <link rel="stylesheet" href="_ds/nab-financial-design-system-ec36137c-8cb2-421a-b0ad-4bebf811bbbf/styles.css">
+  <script src="_ds/nab-financial-design-system-ec36137c-8cb2-421a-b0ad-4bebf811bbbf/_ds_bundle.js"></script>
+  <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+  <style>
+    html { scroll-behavior: smooth; }
+    [data-lucide] { width: 22px; height: 22px; display: inline-block; }
+    section { scroll-margin-top: 92px; }
+    [data-reveal] { opacity: 0; transform: translateY(20px); transition: opacity 540ms var(--ease-out), transform 540ms var(--ease-out); will-change: opacity, transform; }
+    [data-reveal="scale"] { transform: scale(0.95); }
+    [data-reveal][data-shown] { opacity: 1; transform: none; }
+    [data-parallax] { will-change: transform; }
+    @media (prefers-reduced-motion: reduce) {
+      [data-reveal] { opacity: 1 !important; transform: none !important; transition: none !important; }
+      [data-parallax] { transform: none !important; }
+    }
+    @media (max-width: 980px) {
+      .nab-2col { grid-template-columns: 1fr !important; }
+      .nab-3col { grid-template-columns: repeat(2, 1fr) !important; }
+      .nab-4col { grid-template-columns: repeat(2, 1fr) !important; }
+    }
+    @media (max-width: 860px) {
+      .nab-desktop-nav { display: none !important; }
+    }
+    @media (max-width: 640px) {
+      .nab-3col { grid-template-columns: 1fr !important; }
+      .nab-band { flex-direction: column !important; align-items: flex-start !important; }
+    }
+  </style>
+</helmet>
+
+<div data-screen-label="NAB Landing" style="font-family: var(--font-sans); color: var(--text-primary); background: var(--surface-page); min-height: 100%; overflow-x: hidden;">
+
+  <header id="top" data-screen-label="Header" style="position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.86); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-subtle);">
+    <div style="max-width: var(--container-2xl); margin: 0 auto; padding: 0 var(--space-7); height: 80px; display: flex; align-items: center; gap: var(--space-6);">
+      <a href="#top" style="display: flex; align-items: center;"><img src="assets/nab-logo-cropped.svg" alt="NAB Financial Consulting" style="height: 52px;"></a>
+      <div style="margin-left: auto; display: flex; align-items: center; gap: var(--space-6);">
+        <nav class="nab-desktop-nav" style="display: flex; align-items: center; gap: var(--space-6);">
+          <a href="#servicios" style="font-size: var(--text-base); font-weight: var(--weight-semibold); color: var(--text-secondary); text-decoration: none;">{{ navServices }}</a>
+          <a href="#nosotros" style="font-size: var(--text-base); font-weight: var(--weight-semibold); color: var(--text-secondary); text-decoration: none;">{{ navAbout }}</a>
+          <a href="#opiniones" style="font-size: var(--text-base); font-weight: var(--weight-semibold); color: var(--text-secondary); text-decoration: none;">{{ navReviews }}</a>
+          <a href="#preguntas" style="font-size: var(--text-base); font-weight: var(--weight-semibold); color: var(--text-secondary); text-decoration: none;">{{ navFaq }}</a>
+          <a href="tel:+18328010188" style="font-size: var(--text-base); font-weight: var(--weight-semibold); color: var(--text-brand); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; flex: none;"><i data-lucide="phone" style="width:18px;height:18px;"></i>(832) 801-0188</a>
+        </nav>
+        <div style="display: inline-flex; padding: 3px; background: var(--surface-muted); border-radius: var(--radius-pill);">
+          <button type="button" onClick="{{ setEs }}" style="{{ esBtnStyle }}">ES</button>
+          <button type="button" onClick="{{ setEn }}" style="{{ enBtnStyle }}">EN</button>
+        </div>
+        <x-import component-from-global-scope="NABFinancialDesignSystem_ec3613.Button" size="sm" dc-props="{{ bookHeader }}" hint-size="auto,38px">{{ ctaBook }}</x-import>
+      </div>
+    </div>
+  </header>
+
+  <section style="position: relative; overflow: hidden; background: radial-gradient(1100px 520px at 80% -10%, var(--surface-brand-subtle), transparent 60%), var(--surface-page);">
+    <div class="nab-2col" style="max-width: var(--container-2xl); margin: 0 auto; padding: var(--space-12) var(--space-7) var(--space-11); display: grid; grid-template-columns: 1.08fr 0.92fr; gap: var(--space-10); align-items: center;">
+      <div data-stagger>
+        <span class="nab-eyebrow" data-reveal><span class="nab-chevron"></span>{{ heroEyebrow }}</span>
+        <h1 data-reveal style="font-size: clamp(2.6rem, 4.4vw, 4rem); font-weight: var(--weight-extra); line-height: 1.04; letter-spacing: -0.02em; margin: 18px 0 0;">{{ heroTitleA }}<span style="color: var(--text-brand);">{{ heroTitleHi }}</span></h1>
+        <p data-reveal style="margin-top: var(--space-5); font-size: var(--text-lg); line-height: var(--leading-relaxed); color: var(--text-secondary); max-width: 52ch;">{{ heroBody }}</p>
+        <div data-reveal style="display: flex; gap: var(--space-3); margin-top: var(--space-7); flex-wrap: wrap;">
+          <x-import component-from-global-scope="NABFinancialDesignSystem_ec3613.Button" size="lg" dc-props="{{ bookHero }}" hint-size="auto,56px">{{ ctaBook }}</x-import>
+          <a href="#servicios" style="text-decoration: none;"><x-import component-from-global-scope="NABFinancialDesignSystem_ec3613.Button" size="lg" variant="outline" hint-size="auto,56px">{{ ctaView }}</x-import></a>
+        </div>
+        <div data-reveal style="display: flex; align-items: center; gap: var(--space-4); margin-top: var(--space-8);">
+          <div style="display: flex; gap: 2px;">
+            <i data-lucide="star" style="color:#e8a317;fill:#e8a317;width:18px;height:18px;"></i>
+            <i data-lucide="star" style="color:#e8a317;fill:#e8a317;width:18px;height:18px;"></i>
+            <i data-lucide="star" style="color:#e8a317;fill:#e8a317;width:18px;height:18px;"></i>
+            <i data-lucide="star" style="color:#e8a317;fill:#e8a317;width:18px;height:18px;"></i>
+            <i data-lucide="star" style="color:#e8a317;fill:#e8a317;width:18px;height:18px;"></i>
+          </div>
+          <span style="font-size: var(--text-sm); color: var(--text-secondary); font-weight: 600;"><b style="color: var(--text-primary);">5,000+</b> {{ heroRating }}</span>
+        </div>
+      </div>
+      <div data-reveal style="position: relative;">
+        <div style="position: relative; height: 460px; border-radius: 24px; overflow: hidden; box-shadow: var(--shadow-lg);">
+          <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="nab-hero" shape="rect" data-parallax="0.06" placeholder="Suelta una foto del equipo / oficina" style="position: absolute; top: -44px; left: 0; width: 100%; height: 548px; display: block;" hint-size="100%,548px"></x-import>
+        </div>
+        <div style="position: absolute; left: -22px; bottom: 34px; background: #fff; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); padding: 16px 18px; display: flex; align-items: center; gap: 12px;">
+          <span style="display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: var(--radius-md); background: var(--surface-brand-subtle); color: var(--color-brand-strong);"><i data-lucide="shield-check"></i></span>
+          <div>
+            <div style="font-weight: 800; font-size: var(--text-base);">{{ heroCardA }}</div>
+            <div style="font-size: var(--text-sm); color: var(--text-muted);">{{ heroCardB }}</div>
+          </div>
+        </div>
+        <div style="position: absolute; right: -14px; top: 28px; background: var(--surface-inverse); color: #fff; border-radius: var(--radius-pill); padding: 10px 16px; display: flex; align-items: center; gap: 8px; box-shadow: var(--shadow-lg);">
+          <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--color-brand);"></span>
+          <span style="font-weight: 700; font-size: var(--text-sm);">{{ heroChip }}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background: var(--surface-inverse); color: #fff;">
+    <div class="nab-4col" data-stagger style="max-width: var(--container-2xl); margin: 0 auto; padding: var(--space-9) var(--space-7); display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-7); text-align: center;">
+      <sc-for list="{{ trust }}" as="tr" hint-placeholder-count="4">
+        <div data-reveal style="display: flex; flex-direction: column; gap: 4px; align-items: center;">
+          <span style="font-size: var(--text-4xl); font-weight: var(--weight-extra); line-height: 1; letter-spacing: -0.02em; color: #fff;">{{ tr.v }}</span>
+          <span style="font-size: var(--text-sm); color: rgba(255,255,255,0.7); font-weight: 600;">{{ tr.l }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section id="servicios" style="padding: var(--space-12) var(--space-7); max-width: var(--container-2xl); margin: 0 auto;">
+    <div data-stagger style="max-width: 640px; margin: 0 auto var(--space-9); text-align: center;">
+      <span class="nab-eyebrow" data-reveal><span class="nab-chevron"></span>{{ servHeadEyebrow }}</span>
+      <h2 data-reveal style="font-size: var(--text-3xl); margin-top: 12px;">{{ servHeadTitle }}</h2>
+      <p data-reveal style="margin-top: 12px; font-size: var(--text-lg); color: var(--text-secondary);">{{ servHeadBody }}</p>
+    </div>
+
+    <div data-reveal="scale" class="nab-2col" style="display: grid; grid-template-columns: 1fr 0.82fr; gap: var(--space-6); margin-bottom: var(--space-6); align-items: stretch;">
+      <div style="background: var(--surface-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-xl); padding: var(--space-9); box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: var(--space-5);">
+        <span style="display: inline-flex; align-items: center; gap: 8px; font-size: var(--text-xs); font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-brand);"><span class="nab-chevron"></span>{{ featEyebrow }}</span>
+        <h3 style="font-size: var(--text-2xl); letter-spacing: -0.015em;">{{ featTitle }}</h3>
+        <p style="font-size: var(--text-md); color: var(--text-secondary); line-height: var(--leading-relaxed); max-width: 48ch;">{{ featBody }}</p>
+        <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 4px;">
+          <div style="display: flex; align-items: center; gap: 10px; font-size: var(--text-base); font-weight: 600;"><i data-lucide="check" style="color: var(--color-brand); width:20px; height:20px;"></i>{{ featF1 }}</div>
+          <div style="display: flex; align-items: center; gap: 10px; font-size: var(--text-base); font-weight: 600;"><i data-lucide="check" style="color: var(--color-brand); width:20px; height:20px;"></i>{{ featF2 }}</div>
+          <div style="display: flex; align-items: center; gap: 10px; font-size: var(--text-base); font-weight: 600;"><i data-lucide="check" style="color: var(--color-brand); width:20px; height:20px;"></i>{{ featF3 }}</div>
+        </div>
+        <div style="margin-top: auto; padding-top: var(--space-4);">
+          <x-import component-from-global-scope="NABFinancialDesignSystem_ec3613.Button" dc-props="{{ bookFeatured }}" hint-size="auto,46px">{{ featCta }}</x-import>
+        </div>
+      </div>
+      <div style="position: relative; overflow: hidden; border-radius: var(--radius-xl); background: var(--gradient-arrow); color: #fff; padding: var(--space-9); display: flex; flex-direction: column; justify-content: space-between; box-shadow: var(--shadow-lg); min-height: 320px;">
+        <img src="assets/nab-mark.svg" alt="" data-parallax="0.1" style="position: absolute; right: -34px; bottom: -46px; height: 240px; opacity: 0.16;">
+        <div style="position: relative; display: inline-flex; align-items: center; gap: 8px; align-self: flex-start; background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.35); border-radius: var(--radius-pill); padding: 7px 14px; font-size: var(--text-sm); font-weight: 700;"><i data-lucide="badge-check" style="width:18px;height:18px;"></i>{{ featBadge }}</div>
+        <div style="position: relative;">
+          <div style="font-size: var(--text-5xl); font-weight: var(--weight-extra); line-height: 1; letter-spacing: -0.03em;">100%</div>
+          <div style="font-size: var(--text-lg); font-weight: 600; margin-top: 6px; opacity: 0.95;">{{ featSub }}</div>
+          <p style="margin-top: 14px; font-size: var(--text-base); color: rgba(255,255,255,0.9); max-width: 30ch; line-height: 1.5;">{{ featPanelBody }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="nab-3col" data-stagger style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6);">
+      <sc-for list="{{ services }}" as="s" hint-placeholder-count="6">
+        <div data-reveal>
+          <x-import component-from-global-scope="NABFinancialDesignSystem_ec3613.ServiceCard" title="{{ s.title }}" description="{{ s.desc }}" accent="{{ s.accent }}" link-label="{{ ctaMore }}" dc-props="{{ s.props }}" hint-size="100%,260px"></x-import>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section id="nosotros" style="background: var(--surface-subtle);">
+    <div class="nab-2col" style="max-width: var(--container-2xl); margin: 0 auto; padding: var(--space-12) var(--space-7); display: grid; grid-template-columns: 0.9fr 1.1fr; gap: var(--space-10); align-items: center;">
+      <div data-reveal style="position: relative;">
+        <div style="position: relative; height: 440px; border-radius: 22px; overflow: hidden; box-shadow: var(--shadow-lg);">
+          <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="nab-about" shape="rect" data-parallax="0.06" placeholder="Suelta una foto de la oficina" style="position: absolute; top: -44px; left: 0; width: 100%; height: 528px; display: block;" hint-size="100%,528px"></x-import>
+        </div>
+        <div style="position: absolute; right: -18px; bottom: -18px; background: var(--gradient-arrow); color: #fff; border-radius: var(--radius-lg); padding: 18px 22px; box-shadow: var(--shadow-lg);">
+          <div style="font-size: var(--text-4xl); font-weight: 800; line-height: 1;">15+</div>
+          <div style="font-size: var(--text-sm); font-weight: 600; opacity: 0.92;">{{ aboutChipSub }}</div>
+        </div>
+      </div>
+      <div data-stagger>
+        <span class="nab-eyebrow" data-reveal><span class="nab-chevron"></span>{{ aboutEyebrow }}</span>
+        <h2 data-reveal style="font-size: var(--text-3xl); margin-top: 12px;">{{ aboutTitle }}</h2>
+        <p data-reveal style="margin-top: 14px; font-size: var(--text-lg); color: var(--text-secondary); max-width: 54ch;">{{ aboutBody }}</p>
+        <div class="nab-2col" data-reveal style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); margin-top: var(--space-8);">
+          <sc-for list="{{ points }}" as="p" hint-placeholder-count="4">
+            <div style="display: flex; gap: 14px;">
+              <span style="display: inline-flex; align-items: center; justify-content: center; flex: none; width: 44px; height: 44px; border-radius: var(--radius-md); background: var(--surface-brand-subtle); color: var(--color-brand-strong);"><i data-lucide="{{ p.icon }}"></i></span>
+              <div>
+                <div style="font-weight: 700; font-size: var(--text-md);">{{ p.t }}</div>
+                <div style="font-size: var(--text-sm); color: var(--text-secondary); line-height: 1.5; margin-top: 2px;">{{ p.d }}</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="opiniones" style="padding: var(--space-12) var(--space-7); max-width: var(--container-2xl); margin: 0 auto;">
+    <div data-stagger style="max-width: 640px; margin: 0 auto; text-align: center;">
+      <span class="nab-eyebrow" data-reveal><span class="nab-chevron"></span>{{ voicesEyebrow }}</span>
+      <h2 data-reveal style="font-size: var(--text-3xl); margin-top: 12px;">{{ voicesTitle }}</h2>
+    </div>
+    <div class="nab-3col" data-stagger style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); margin-top: var(--space-9);">
+      <sc-for list="{{ testimonials }}" as="t" hint-placeholder-count="3">
+        <div data-reveal>
+          <x-import component-from-global-scope="NABFinancialDesignSystem_ec3613.Card" padding="7" elevation="sm" dc-props="{{ cardFlex }}" hint-size="100%,240px">
+            <div style="display: flex; gap: 2px; color: #e8a317;">
+              <i data-lucide="star" style="color:#e8a317;fill:#e8a317;width:16px;height:16px;"></i>
+              <i data-lucide="star" style="color:#e8a317;fill:#e8a317;width:16px;height:16px;"></i>
+              <i data-lucide="star" style="color:#e8a317;fill:#e8a317;width:16px;height:16px;"></i>
+              <i data-lucide="star" style="color:#e8a317;fill:#e8a317;width:16px;height:16px;"></i>
+              <i data-lucide="star" style="color:#e8a317;fill:#e8a317;width:16px;height:16px;"></i>
+            </div>
+            <p style="font-size: var(--text-md); line-height: 1.55; color: var(--text-primary);">"{{ t.quote }}"</p>
+            <div style="display: flex; align-items: center; gap: 12px; margin-top: auto;">
+              <span style="display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; flex: none; border-radius: 50%; background: var(--surface-brand-subtle); color: var(--green-700); font-weight: 800; font-size: 16px;">{{ t.initials }}</span>
+              <div>
+                <div style="font-weight: 700; font-size: var(--text-sm);">{{ t.name }}</div>
+                <div style="font-size: var(--text-sm); color: var(--text-muted);">{{ t.role }}</div>
+              </div>
+            </div>
+          </x-import>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section id="preguntas" style="background: var(--surface-subtle);">
+    <div class="nab-2col" style="max-width: var(--container-xl); margin: 0 auto; padding: var(--space-12) var(--space-7); display: grid; grid-template-columns: 0.8fr 1.2fr; gap: var(--space-10); align-items: start;">
+      <div data-stagger>
+        <span class="nab-eyebrow" data-reveal><span class="nab-chevron"></span>{{ faqEyebrow }}</span>
+        <h2 data-reveal style="font-size: var(--text-3xl); margin-top: 12px;">{{ faqTitle }}</h2>
+        <p data-reveal style="margin-top: 12px; color: var(--text-secondary); font-size: var(--text-md);">{{ faqNote }}</p>
+      </div>
+      <div data-reveal style="background: var(--surface-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-card); box-shadow: var(--shadow-sm); padding: var(--space-8);">
+        <sc-for list="{{ faqItems }}" as="f" hint-placeholder-count="5">
+          <div style="border-bottom: 1px solid var(--border-subtle);">
+            <button type="button" onClick="{{ f.onToggle }}" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%; padding: var(--space-5) 0; background: transparent; border: none; cursor: pointer; text-align: left; font-family: var(--font-sans); font-size: var(--text-md); font-weight: var(--weight-semibold); color: var(--text-primary);">
+              {{ f.q }}
+              <span style="{{ f.chipStyle }}">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" style="{{ f.chevStyle }}"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              </span>
+            </button>
+            <div style="{{ f.rowStyle }}">
+              <div style="overflow: hidden;">
+                <div style="padding-bottom: var(--space-5); font-size: var(--text-base); line-height: var(--leading-relaxed); color: var(--text-secondary); max-width: 70ch;">{{ f.a }}</div>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding: var(--space-10) 0;">
+    <div style="max-width: var(--container-2xl); margin: 0 auto; padding: 0 var(--space-7);">
+      <div data-reveal="scale" class="nab-band" style="position: relative; overflow: hidden; background: var(--gradient-arrow); border-radius: var(--radius-2xl); padding: var(--space-11) var(--space-10); color: #fff; display: flex; align-items: center; justify-content: space-between; gap: var(--space-8); box-shadow: var(--shadow-xl);">
+        <img src="assets/nab-mark.svg" alt="" data-parallax="0.1" style="position: absolute; right: -30px; bottom: -50px; height: 280px; opacity: 0.16;">
+        <div style="position: relative; max-width: 60ch;">
+          <h2 style="font-size: var(--text-3xl); color: #fff; letter-spacing: -0.02em;">{{ bandTitle }}</h2>
+          <p style="margin-top: 12px; font-size: var(--text-lg); color: rgba(255,255,255,0.92);">{{ bandBody }}</p>
+        </div>
+        <div style="position: relative; display: flex; gap: 12px; flex: none; flex-wrap: wrap;">
+          <x-import component-from-global-scope="NABFinancialDesignSystem_ec3613.Button" size="lg" variant="secondary" dc-props="{{ bookBand }}" hint-size="auto,56px">{{ ctaBook }}</x-import>
+          <a href="tel:+18328010188" style="text-decoration: none;"><x-import component-from-global-scope="NABFinancialDesignSystem_ec3613.Button" size="lg" variant="ghost" dc-props="{{ callBand }}" hint-size="auto,56px">{{ ctaCall }}</x-import></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background: var(--surface-inverse); color: rgba(255,255,255,0.72);">
+    <div class="nab-3col" data-stagger style="max-width: var(--container-2xl); margin: 0 auto; padding: var(--space-11) var(--space-7) var(--space-8); display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: var(--space-9);">
+      <div data-reveal>
+        <img src="assets/nab-logo-white.svg" alt="NAB Financial Consulting" style="height: 46px; margin-bottom: 16px;">
+        <p style="max-width: 38ch; line-height: 1.6;">{{ footTagline }}</p>
+      </div>
+      <div data-reveal>
+        <div style="color: #fff; font-size: var(--text-sm); font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 14px;">{{ footContactH }}</div>
+        <div style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; font-size: var(--text-base);"><i data-lucide="map-pin" style="color: var(--green-400);"></i><span>450 N Sam Houston Pkwy E, Suite 130<br>Houston, TX 77060</span></div>
+        <div style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; font-size: var(--text-base);"><i data-lucide="phone" style="color: var(--green-400);"></i><a href="tel:+18328010188" style="color: inherit; text-decoration: none;">(832) 801-0188</a></div>
+        <div style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; font-size: var(--text-base);"><i data-lucide="mail" style="color: var(--green-400);"></i><a href="mailto:contacto@nabtaxservices.com" style="color: inherit; text-decoration: none;">contacto@nabtaxservices.com</a></div>
+      </div>
+      <div data-reveal>
+        <div style="color: #fff; font-size: var(--text-sm); font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 14px;">{{ footServicesH }}</div>
+        <sc-for list="{{ footServiceLinks }}" as="l" hint-placeholder-count="5">
+          <a href="#servicios" style="color: rgba(255,255,255,0.72); text-decoration: none; display: block; margin-bottom: 10px; font-size: var(--text-base);">{{ l }}</a>
+        </sc-for>
+      </div>
+    </div>
+    <div style="border-top: 1px solid rgba(255,255,255,0.12);">
+      <div style="max-width: var(--container-2xl); margin: 0 auto; padding: 20px var(--space-7); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-size: var(--text-sm);">
+        <span>{{ footRights }}</span>
+        <span>{{ footHours }}</span>
+      </div>
+    </div>
+  </footer>
+
+  <sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position: fixed; inset: 0; z-index: 100; background: rgba(11,14,13,0.55); backdrop-filter: blur(3px); display: flex; align-items: center; justify-content: center; padding: var(--space-6);" onClick="{{ closeModal }}">
+      <div style="width: min(520px, 100%); max-height: 92vh; overflow-y: auto; background: #fff; border-radius: var(--radius-xl); box-shadow: var(--shadow-xl); padding: var(--space-9); position: relative;" onClick="{{ stop }}">
+        <x-import component-from-global-scope="NABFinancialDesignSystem_ec3613.IconButton" label="{{ mClose }}" variant="ghost" dc-props="{{ closeIconBtn }}" hint-size="40px,40px"><i data-lucide="x"></i></x-import>
+        <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+          <div style="text-align: center; padding: var(--space-7) 0;">
+            <span style="display: inline-flex; align-items: center; justify-content: center; width: 64px; height: 64px; border-radius: 50%; background: var(--surface-brand-subtle); color: var(--color-brand); margin-bottom: 16px;"><i data-lucide="check" style="width: 32px; height: 32px;"></i></span>
+            <h3 style="font-size: var(--text-2xl);">{{ mSentTitle }}</h3>
+            <p style="margin-top: 10px; color: var(--text-secondary);">{{ mSentBody }}</p>
+            <div style="margin-top: 24px; display: flex; justify-content: center;"><x-import component-from-global-scope="NABFinancialDesignSystem_ec3613.Button" dc-props="{{ doneBtn }}" hint-size="auto,46px">{{ mDone }}</x-import></div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+          <div>
+            <span class="nab-eyebrow"><span class="nab-chevron"></span>{{ modalEyebrow }}</span>
+            <h3 style="font-size: var(--text-2xl); margin-top: 10px;">{{ modalTitle }}</h3>
+            <p style="margin-top: 8px; color: var(--text-secondary); font-size: var(--text-base);">{{ modalBody }}</p>
+            <form style="display: flex; flex-direction: column; gap: var(--space-5); margin-top: var(--space-7);" onSubmit="{{ submitForm }}">
+              <x-import component-from-global-scope="NABFinancialDesignSystem_ec3613.Input" label="{{ mName }}" placeholder="{{ mNamePh }}" dc-props="{{ nameProps }}" hint-size="100%,72px"></x-import>
+              <div class="nab-2col" style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4);">
+                <x-import component-from-global-scope="NABFinancialDesignSystem_ec3613.Input" label="{{ mPhone }}" placeholder="{{ mPhonePh }}" dc-props="{{ phoneProps }}" hint-size="100%,72px"></x-import>
+                <x-import component-from-global-scope="NABFinancialDesignSystem_ec3613.Input" label="{{ mEmail }}" placeholder="{{ mEmailPh }}" dc-props="{{ emailProps }}" hint-size="100%,72px"></x-import>
+              </div>
+              <x-import component-from-global-scope="NABFinancialDesignSystem_ec3613.Select" label="{{ mHelp }}" default-value="taxes" hint-size="100%,72px">
+                <sc-for list="{{ modalOptions }}" as="o" hint-placeholder-count="7">
+                  <option value="{{ o.value }}">{{ o.label }}</option>
+                </sc-for>
+              </x-import>
+              <x-import component-from-global-scope="NABFinancialDesignSystem_ec3613.Checkbox" label="{{ mConsent }}" dc-props="{{ checkProps }}" hint-size="100%,40px"></x-import>
+              <x-import component-from-global-scope="NABFinancialDesignSystem_ec3613.Button" size="lg" dc-props="{{ submitBtn }}" hint-size="100%,56px">{{ mSubmit }}</x-import>
+            </form>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { modalOpen: false, sent: false, lang: 'es', openFaq: 0 };
+
+  componentDidMount() {
+    this._icons();
+    this._setupReveal();
+    this._setupParallax();
+  }
+  componentDidUpdate() { this._icons(); }
+  componentWillUnmount() {
+    if (this._onScroll) window.removeEventListener('scroll', this._onScroll);
+    if (this._failsafe) clearTimeout(this._failsafe);
+  }
+
+  _icons() {
+    const run = () => { try { window.lucide && window.lucide.createIcons(); } catch (e) {} };
+    [0, 120, 350, 800, 1500].forEach(t => setTimeout(run, t));
+  }
+
+  _reduced() {
+    try { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; }
+  }
+
+  _setupReveal() {
+    if (this._reduced() || !('IntersectionObserver' in window)) return;
+    const show = el => el.setAttribute('data-shown', '');
+    const io = new IntersectionObserver((entries, obs) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target;
+        if (el.hasAttribute('data-stagger')) {
+          const kids = [...el.querySelectorAll('[data-reveal]')].filter(k => k.closest('[data-stagger]') === el);
+          kids.forEach((k, i) => { k.style.transitionDelay = (i * 95) + 'ms'; show(k); });
+        } else {
+          show(el);
+        }
+        obs.unobserve(el);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+    const staggers = [...document.querySelectorAll('[data-stagger]')];
+    staggers.forEach(s => io.observe(s));
+    document.querySelectorAll('[data-reveal]').forEach(el => {
+      if (!el.closest('[data-stagger]')) io.observe(el);
+    });
+    this._failsafe = setTimeout(() => {
+      document.querySelectorAll('[data-reveal]:not([data-shown])').forEach(show);
+    }, 2800);
+  }
+
+  _setupParallax() {
+    if (this._reduced()) return;
+    const els = [...document.querySelectorAll('[data-parallax]')];
+    if (!els.length) return;
+    let ticking = false;
+    const update = () => {
+      const vh = window.innerHeight || 800;
+      els.forEach(el => {
+        const sp = parseFloat(el.getAttribute('data-parallax')) || 0.06;
+        const r = el.getBoundingClientRect();
+        const center = r.top + r.height / 2 - vh / 2;
+        el.style.transform = 'translate3d(0,' + (-center * sp).toFixed(1) + 'px,0)';
+      });
+      ticking = false;
+    };
+    this._onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    update();
+  }
+
+  renderVals() {
+    const el = React.createElement;
+    const ic = (n, extra) => el('i', Object.assign({ 'data-lucide': n }, extra || {}));
+    const open = () => this.setState({ modalOpen: true, sent: false });
+    const close = () => this.setState({ modalOpen: false });
+    const submit = (e) => { e.preventDefault(); this.setState({ sent: true }); };
+
+    const STR = {
+      es: {
+        navServices: 'Servicios', navAbout: 'Nosotros', navReviews: 'Opiniones', navFaq: 'Preguntas',
+        ctaBook: 'Agenda tu cita', ctaView: 'Ver servicios', ctaCall: 'Llámanos', ctaMore: 'Saber más',
+        heroEyebrow: 'NAB Financial Consulting · Houston, TX',
+        heroTitleA: 'Tus impuestos, en manos ', heroTitleHi: 'expertas.',
+        heroBody: 'Más de 15 años ayudando a la comunidad de Houston con la preparación de impuestos, trámite de ITIN, inmigración, payroll y notaría pública — siempre con atención personal y en español.',
+        heroRating: 'familias y negocios atendidos',
+        heroCardA: 'Declaración segura', heroCardB: 'IRS e-file autorizado', heroChip: 'Atención bilingüe',
+        featEyebrow: 'Servicio destacado', featTitle: 'Tus impuestos, en manos expertas',
+        featBody: 'Declaraciones personales y de negocios, presentadas con precisión para maximizar tu reembolso. Somos proveedor autorizado de e-file ante el IRS.',
+        featF1: 'Impuestos personales', featF2: 'Impuestos de negocios', featF3: 'Declaración segura por e-file', featCta: 'Agenda tu declaración',
+        featBadge: 'IRS e-file · Autorizado', featSub: 'en español, paso a paso',
+        featPanelBody: 'Te explicamos cada formulario sin tecnicismos, para que entiendas exactamente lo que firmas.',
+        servHeadEyebrow: 'Nuestros servicios', servHeadTitle: 'Todo lo financiero, bajo un mismo techo',
+        servHeadBody: 'Desde tus impuestos personales hasta la contabilidad de tu empresa, la inmigración y la notaría — te acompañamos en cada paso.',
+        aboutEyebrow: 'Por qué NAB', aboutTitle: 'Tu socio financiero de confianza en Houston',
+        aboutBody: 'Desde hace más de quince años acompañamos a familias y pequeños negocios de la comunidad. Nuestra misión es simple: que entiendas tus finanzas y cumplas con tranquilidad.',
+        aboutChipSub: 'años de experiencia',
+        voicesEyebrow: 'Opiniones', voicesTitle: 'Lo que dice nuestra comunidad',
+        faqEyebrow: 'Preguntas frecuentes', faqTitle: 'Resolvemos tus dudas', faqNote: '¿No ves tu pregunta? Llámanos al (832) 801-0188.',
+        bandTitle: 'Empieza tu declaración hoy mismo', bandBody: 'Agenda una cita sin costo y deja tus impuestos en manos de quienes conocen tu comunidad.',
+        footTagline: 'Servicios de impuestos, contabilidad, inmigración y notaría para la comunidad de Houston desde hace más de 15 años.',
+        footContactH: 'Contacto', footServicesH: 'Servicios',
+        footHours: 'Lun–Sáb · 9:00 AM – 7:00 PM', footRights: '© 2026 NAB Financial Consulting LLC. Todos los derechos reservados.',
+        modalEyebrow: 'Agenda tu cita', modalTitle: 'Cuéntanos de ti', modalBody: 'Déjanos tus datos y un asesor te contactará. Sin compromiso.',
+        mName: 'Nombre completo', mNamePh: 'Ana Bello', mPhone: 'Teléfono', mPhonePh: '(832) 000-0000', mEmail: 'Correo', mEmailPh: 'tu@email.com',
+        mHelp: '¿En qué te ayudamos?', mConsent: 'Acepto que NAB me contacte por teléfono o correo.', mSubmit: 'Solicitar cita',
+        mSentTitle: '¡Cita solicitada!', mSentBody: 'Gracias. Te contactaremos muy pronto para confirmar tu cita.', mDone: 'Listo', mClose: 'Cerrar',
+        trust: [['15+', 'Años de experiencia'], ['5,000+', 'Familias y negocios'], ['7', 'Servicios financieros'], ['100%', 'Atención bilingüe']],
+        services: [
+          ['badge-check', 'ITIN Number', 'Te guiamos paso a paso para tramitar tu ITIN Number (Formulario W-7), de forma rápida y correcta.', 'accent'],
+          ['file-check-2', 'Documentos legales', 'Apoyo en el llenado y la presentación de tus documentos legales, de forma correcta y sin estrés.', 'brand'],
+          ['landmark', 'Inmigración', 'Residencia, ciudadanía, DACA y asesoría — te acompañamos en cada paso de tu proceso.', 'accent'],
+          ['calculator', 'Contabilidad', 'Bookkeeping mensual para personas y empresas, con reportes que de verdad entiendes.', 'brand'],
+          ['wallet', 'Payroll', 'Procesamos la nómina de tu negocio a tiempo y en regla en cada periodo de pago.', 'accent'],
+          ['stamp', 'Notaría pública', 'Servicios de notaría para tus documentos importantes, aquí mismo en la oficina.', 'brand'],
+        ],
+        points: [
+          ['users', 'Trato personal', 'Te atiende siempre alguien de nuestro equipo, que conoce tu caso por nombre.'],
+          ['languages', 'Todo en español', 'Explicamos cada formulario en tu idioma, sin tecnicismos confusos.'],
+          ['shield-check', 'Presentación segura', 'Proveedor autorizado para presentar declaraciones por e-file ante el IRS.'],
+          ['map-pin', 'En tu comunidad', 'Oficina en Sam Houston Pkwy, Houston — fácil de visitar y siempre cerca de ti.'],
+        ],
+        testimonials: [
+          ['Me ayudaron con mi ITIN y la declaración de toda mi familia. Rápido, claro y todo en español.', 'María G.', 'Cliente personal', 'MG'],
+          ['Llevan la contabilidad y el payroll de mi taller hace años. Por fin entiendo mis números.', 'Jorge R.', 'Dueño de negocio', 'JR'],
+          ['Profesionales y muy pacientes. Explicaron cada documento sin prisa. Los recomiendo.', 'Lucía M.', 'Cliente personal', 'LM'],
+        ],
+        faq: [
+          ['¿Qué documentos necesito para mi declaración de impuestos?', 'Por lo general: identificación oficial, números de Seguro Social o ITIN de tu familia, formularios W-2 o 1099, y comprobantes de gastos deducibles. Te enviamos una lista completa al agendar tu cita.'],
+          ['¿Cómo obtengo mi ITIN Number?', 'Te ayudamos a preparar el Formulario W-7 y a reunir los documentos requeridos (pasaporte vigente y tu declaración). Tenemos experiencia en este trámite y te guiamos paso a paso.'],
+          ['¿Atienden casos de inmigración?', 'Sí. Ofrecemos asesoría y acompañamiento en renovación de residencia, ciudadanía y renovación de DACA, además del llenado de documentos legales.'],
+          ['¿Atienden a negocios además de personas?', 'Sí. Ofrecemos contabilidad, payroll y declaraciones para empresas de todos los tamaños, además de los servicios personales.'],
+          ['¿Toda la atención es en español?', 'Por supuesto. Todo nuestro equipo es bilingüe y te explicamos cada paso en el idioma en el que te sientas más cómodo.'],
+        ],
+        footServiceLinks: ['Preparación de impuestos', 'Trámite de ITIN', 'Inmigración', 'Contabilidad y Payroll', 'Notaría pública'],
+        modalOptions: [['taxes', 'Preparación de impuestos'], ['itin', 'Trámite de ITIN'], ['immigration', 'Inmigración'], ['accounting', 'Contabilidad'], ['payroll', 'Payroll'], ['notary', 'Notaría pública'], ['legal', 'Documentos legales']],
+      },
+      en: {
+        navServices: 'Services', navAbout: 'About', navReviews: 'Reviews', navFaq: 'FAQ',
+        ctaBook: 'Book appointment', ctaView: 'See services', ctaCall: 'Call us', ctaMore: 'Learn more',
+        heroEyebrow: 'NAB Financial Consulting · Houston, TX',
+        heroTitleA: 'Your taxes, in ', heroTitleHi: 'expert hands.',
+        heroBody: 'Over 15 years helping the Houston community with tax preparation, ITIN, immigration, payroll and notary services — always with personal, bilingual service.',
+        heroRating: 'families and businesses served',
+        heroCardA: 'Secure filing', heroCardB: 'IRS e-file authorized', heroChip: 'Bilingual service',
+        featEyebrow: 'Featured service', featTitle: 'Your taxes, in expert hands',
+        featBody: 'Personal and business returns, filed accurately to maximize your refund. We are an IRS-authorized e-file provider.',
+        featF1: 'Personal taxes', featF2: 'Business taxes', featF3: 'Secure e-file filing', featCta: 'Start your return',
+        featBadge: 'IRS e-file · Authorized', featSub: 'in your language, step by step',
+        featPanelBody: 'We explain every form in plain language, so you know exactly what you sign.',
+        servHeadEyebrow: 'Our services', servHeadTitle: 'All your finances, under one roof',
+        servHeadBody: 'From personal taxes to your company bookkeeping, immigration and notary — we guide you every step of the way.',
+        aboutEyebrow: 'Why NAB', aboutTitle: 'Your trusted financial partner in Houston',
+        aboutBody: 'For over fifteen years we have supported families and small businesses in the community. Our mission is simple: that you understand your finances and file with peace of mind.',
+        aboutChipSub: 'years of experience',
+        voicesEyebrow: 'Reviews', voicesTitle: 'What our community says',
+        faqEyebrow: 'FAQ', faqTitle: 'We answer your questions', faqNote: 'Not seeing your question? Call us at (832) 801-0188.',
+        bandTitle: 'Start your return today', bandBody: 'Book a free appointment and put your taxes in the hands of people who know your community.',
+        footTagline: 'Tax, bookkeeping, immigration and notary services for the Houston community for over 15 years.',
+        footContactH: 'Contact', footServicesH: 'Services',
+        footHours: 'Mon–Sat · 9:00 AM – 7:00 PM', footRights: '© 2026 NAB Financial Consulting LLC. All rights reserved.',
+        modalEyebrow: 'Book appointment', modalTitle: 'Tell us about you', modalBody: 'Leave your details and an advisor will contact you. No obligation.',
+        mName: 'Full name', mNamePh: 'Ana Bello', mPhone: 'Phone', mPhonePh: '(832) 000-0000', mEmail: 'Email', mEmailPh: 'you@email.com',
+        mHelp: 'How can we help?', mConsent: 'I agree that NAB may contact me by phone or email.', mSubmit: 'Request appointment',
+        mSentTitle: 'Appointment requested!', mSentBody: 'Thank you. We will contact you soon to confirm your appointment.', mDone: 'Done', mClose: 'Close',
+        trust: [['15+', 'Years of experience'], ['5,000+', 'Families and businesses'], ['7', 'Financial services'], ['100%', 'Bilingual service']],
+        services: [
+          ['badge-check', 'ITIN Number', 'We guide you step by step to apply for your ITIN Number (Form W-7), quickly and correctly.', 'accent'],
+          ['file-check-2', 'Legal documents', 'Help filling and filing your legal documents — done right, stress-free.', 'brand'],
+          ['landmark', 'Immigration', 'Residency, citizenship, DACA and advising — we walk you through every step of your process.', 'accent'],
+          ['calculator', 'Bookkeeping', 'Monthly bookkeeping for people and businesses, with reports you actually understand.', 'brand'],
+          ['wallet', 'Payroll', 'We run your business payroll on time and by the book, every pay period.', 'accent'],
+          ['stamp', 'Notary public', 'Notary services for your important documents, right here in the office.', 'brand'],
+        ],
+        points: [
+          ['users', 'Personal service', 'You are always helped by someone on our team who knows your case by name.'],
+          ['languages', 'Bilingual service', 'We explain every form in the language you are most comfortable with.'],
+          ['shield-check', 'Secure filing', 'Authorized provider to e-file returns with the IRS.'],
+          ['map-pin', 'In your community', 'Office on Sam Houston Pkwy, Houston — easy to visit and always close by.'],
+        ],
+        testimonials: [
+          ['They helped me with my ITIN and the returns for my whole family. Fast, clear and all in Spanish.', 'María G.', 'Personal client', 'MG'],
+          ['They have handled my shop bookkeeping and payroll for years. I finally understand my numbers.', 'Jorge R.', 'Business owner', 'JR'],
+          ['Professional and very patient. They explained every document without rushing. Highly recommend.', 'Lucía M.', 'Personal client', 'LM'],
+        ],
+        faq: [
+          ['What documents do I need for my tax return?', 'Generally: a photo ID, Social Security or ITIN numbers for your family, W-2 or 1099 forms, and receipts for deductible expenses. We send you a full checklist when you book.'],
+          ['How do I get my ITIN Number?', 'We help you prepare Form W-7 and gather the required documents (a valid passport and your return). We have experience with this process and guide you step by step.'],
+          ['Do you handle immigration cases?', 'Yes. We offer advising and support with residency renewal, citizenship and DACA renewal, plus filling out legal documents.'],
+          ['Do you serve businesses as well as individuals?', 'Yes. We offer bookkeeping, payroll and returns for businesses of all sizes, in addition to personal services.'],
+          ['Is all service available in Spanish?', 'Absolutely. Our whole team is bilingual and we explain every step in the language you are most comfortable with.'],
+        ],
+        footServiceLinks: ['Tax preparation', 'ITIN filing', 'Immigration', 'Bookkeeping and Payroll', 'Notary public'],
+        modalOptions: [['taxes', 'Tax preparation'], ['itin', 'ITIN filing'], ['immigration', 'Immigration'], ['accounting', 'Bookkeeping'], ['payroll', 'Payroll'], ['notary', 'Notary public'], ['legal', 'Legal documents']],
+      },
+    };
+
+    const lang = this.state.lang;
+    const t = STR[lang];
+
+    const services = t.services.map(r => ({ title: r[1], desc: r[2], accent: r[3], props: { icon: ic(r[0]), onClick: open } }));
+    const points = t.points.map(r => ({ icon: r[0], t: r[1], d: r[2] }));
+    const testimonials = t.testimonials.map(r => ({ quote: r[0], name: r[1], role: r[2], initials: r[3] }));
+    const trust = t.trust.map(r => ({ v: r[0], l: r[1] }));
+    const modalOptions = t.modalOptions.map(r => ({ value: r[0], label: r[1] }));
+
+    const faqItems = t.faq.map((r, i) => {
+      const isOpen = i === this.state.openFaq;
+      return {
+        q: r[0], a: r[1],
+        onToggle: () => this.setState(s => ({ openFaq: s.openFaq === i ? -1 : i })),
+        chipStyle: { display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '30px', height: '30px', flex: 'none', borderRadius: '50%', background: isOpen ? 'var(--color-brand)' : 'var(--surface-muted)', color: isOpen ? '#fff' : 'var(--text-secondary)', transition: 'var(--transition-base)' },
+        chevStyle: { transform: isOpen ? 'rotate(180deg)' : 'none', transition: 'var(--transition-base)' },
+        rowStyle: { display: 'grid', gridTemplateRows: isOpen ? '1fr' : '0fr', transition: 'grid-template-rows 260ms var(--ease-out)' },
+      };
+    });
+
+    const langBtn = (active) => ({
+      border: 'none', cursor: 'pointer', fontFamily: 'var(--font-sans)', fontWeight: 700,
+      fontSize: 'var(--text-sm)', letterSpacing: '0.02em', padding: '6px 12px', borderRadius: 'var(--radius-pill)',
+      background: active ? '#fff' : 'transparent', color: active ? 'var(--text-brand)' : 'var(--text-muted)',
+      boxShadow: active ? 'var(--shadow-xs)' : 'none', transition: 'var(--transition-base)',
+    });
+
+    return Object.assign({}, t, {
+      modalOpen: this.state.modalOpen,
+      sent: this.state.sent,
+      notSent: !this.state.sent,
+      services, points, testimonials, trust, modalOptions, faqItems,
+      footServiceLinks: t.footServiceLinks,
+      setEs: () => this.setState({ lang: 'es' }),
+      setEn: () => this.setState({ lang: 'en' }),
+      esBtnStyle: langBtn(lang === 'es'),
+      enBtnStyle: langBtn(lang === 'en'),
+      closeModal: close,
+      stop: (e) => e.stopPropagation(),
+      submitForm: submit,
+      cardFlex: { style: { display: 'flex', flexDirection: 'column', gap: '16px', height: '100%' } },
+      bookHeader: { iconRight: ic('calendar', { style: { width: 16, height: 16 } }), onClick: open },
+      bookHero: { iconRight: ic('calendar'), onClick: open },
+      bookFeatured: { iconRight: ic('arrow-right'), onClick: open },
+      bookBand: { iconRight: ic('calendar'), onClick: open },
+      callBand: { iconLeft: ic('phone'), style: { color: '#fff', border: '1.5px solid rgba(255,255,255,0.55)' } },
+      closeIconBtn: { onClick: close, style: { position: 'absolute', top: '16px', right: '16px' } },
+      doneBtn: { onClick: close },
+      nameProps: { iconLeft: ic('user'), required: true },
+      phoneProps: { iconLeft: ic('phone'), type: 'tel', required: true },
+      emailProps: { iconLeft: ic('mail'), type: 'email' },
+      submitBtn: { iconRight: ic('arrow-right'), type: 'submit', fullWidth: true },
+      checkProps: { defaultChecked: true },
+    });
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+---
+/**
+ * Contact modal — lead-capture form with a success state. Hidden by default;
+ * the client island toggles `.is-open`. Overlay click closes, panel click does
+ * not. The submit is a mock success — wire `submitForm` to the real lead
+ * endpoint / CRM in src/scripts/app.ts.
+ */
+import { Icon } from 'astro-icon/components';
+import Button from './ds/Button.astro';
+import Input from './ds/Input.astro';
+import Select from './ds/Select.astro';
+import Checkbox from './ds/Checkbox.astro';
+import IconButton from './ds/IconButton.astro';
+import { STR, DEFAULT_LANG } from '../i18n/strings';
+
+const t = STR[DEFAULT_LANG];
+---
+
+<div class="modal" data-modal hidden aria-hidden="true">
+  <div class="modal__overlay" data-modal-overlay>
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <IconButton icon="x" label={t.mClose} class="modal__close" data-modal-close />
+
+      <div class="modal__form" data-modal-form>
+        <span class="nab-eyebrow">
+          <span class="nab-chevron"></span><span data-i18n="modalEyebrow">{t.modalEyebrow}</span>
+        </span>
+        <h3 id="modal-title" class="modal__title" data-i18n="modalTitle">{t.modalTitle}</h3>
+        <p class="modal__body" data-i18n="modalBody">{t.modalBody}</p>
+
+        <form class="modal__fields" data-lead-form novalidate>
+          <Input name="name" label={t.mName} labelKey="mName" placeholder={t.mNamePh} placeholderKey="mNamePh" iconLeft="user" autocomplete="name" required />
+          <div class="modal__row nab-2col">
+            <Input name="phone" type="tel" label={t.mPhone} labelKey="mPhone" placeholder={t.mPhonePh} placeholderKey="mPhonePh" iconLeft="phone" autocomplete="tel" required />
+            <Input name="email" type="email" label={t.mEmail} labelKey="mEmail" placeholder={t.mEmailPh} placeholderKey="mEmailPh" iconLeft="mail" autocomplete="email" />
+          </div>
+          <Select name="help" label={t.mHelp} labelKey="mHelp" options={t.modalOptions} defaultValue="taxes" />
+          <Checkbox name="consent" label={t.mConsent} labelKey="mConsent" checked />
+          <Button size="lg" type="submit" iconRight="arrow-right" fullWidth>
+            <span data-i18n="mSubmit">{t.mSubmit}</span>
+          </Button>
+        </form>
+      </div>
+
+      <div class="modal__sent" data-modal-sent hidden>
+        <span class="modal__sent-icon" aria-hidden="true">
+          <Icon name="lucide:check" width={32} height={32} />
+        </span>
+        <h3 class="modal__title" data-i18n="mSentTitle">{t.mSentTitle}</h3>
+        <p class="modal__body" data-i18n="mSentBody">{t.mSentBody}</p>
+        <div class="modal__done">
+          <Button data-modal-close>
+            <span data-i18n="mDone">{t.mDone}</span>
+          </Button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .modal[hidden] {
+    display: none;
+  }
+  .modal__overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: rgba(11, 14, 13, 0.55);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-6);
+    opacity: 0;
+    transition: opacity var(--duration-base) var(--ease-out);
+  }
+  .modal.is-open .modal__overlay {
+    opacity: 1;
+  }
+  .modal__panel {
+    width: min(520px, 100%);
+    max-height: 92vh;
+    overflow-y: auto;
+    background: #fff;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-xl);
+    padding: var(--space-9);
+    position: relative;
+    transform: translateY(12px) scale(0.98);
+    transition: transform var(--duration-base) var(--ease-out);
+  }
+  .modal.is-open .modal__panel {
+    transform: none;
+  }
+  .modal__close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+  }
+  .modal__title {
+    font-size: var(--text-2xl);
+    margin-top: 10px;
+  }
+  .modal__body {
+    margin-top: 8px;
+    color: var(--text-secondary);
+    font-size: var(--text-base);
+  }
+  .modal__fields {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    margin-top: var(--space-7);
+  }
+  .modal__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+  }
+
+  .modal__sent[hidden] {
+    display: none;
+  }
+  .modal__sent {
+    text-align: center;
+    padding: var(--space-7) 0;
+  }
+  .modal__sent-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--surface-brand-subtle);
+    color: var(--color-brand);
+    margin-bottom: 16px;
+  }
+  .modal__sent .modal__body {
+    margin-top: 10px;
+  }
+  .modal__done {
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
+  }
+
+  @media (max-width: 640px) {
+    .modal__row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

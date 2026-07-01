@@ -1,0 +1,142 @@
+---
+/**
+ * FAQ — single-open accordion (first item open by default). Answer panels
+ * expand via grid-template-rows 0fr→1fr; chevron chip swaps colour and rotates.
+ */
+import { STR, DEFAULT_LANG } from '../i18n/strings';
+
+const t = STR[DEFAULT_LANG];
+---
+
+<section id="preguntas" class="faq">
+  <div class="container container--xl faq__grid nab-2col">
+    <div class="faq__intro" data-stagger>
+      <span class="nab-eyebrow" data-reveal>
+        <span class="nab-chevron"></span><span data-i18n="faqEyebrow">{t.faqEyebrow}</span>
+      </span>
+      <h2 data-reveal data-i18n="faqTitle">{t.faqTitle}</h2>
+      <p data-reveal data-i18n="faqNote">{t.faqNote}</p>
+    </div>
+
+    <div class="faq__card" data-reveal data-faq>
+      {
+        t.faq.map((f, i) => (
+          <div class={`faq__item${i === 0 ? ' is-open' : ''}`} data-faq-item>
+            <button
+              type="button"
+              class="faq__q"
+              data-faq-toggle
+              aria-expanded={i === 0 ? 'true' : 'false'}
+              aria-controls={`faq-panel-${i}`}
+            >
+              <span data-i18n={`faq.${i}.q`}>{f.q}</span>
+              <span class="faq__chip" aria-hidden="true">
+                <svg class="faq__chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                  <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              </span>
+            </button>
+            <div class="faq__panel" id={`faq-panel-${i}`}>
+              <div class="faq__panel-inner">
+                <div class="faq__a" data-i18n={`faq.${i}.a`}>{f.a}</div>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq {
+    background: var(--surface-subtle);
+  }
+  .faq__grid {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: var(--space-10);
+    align-items: start;
+    padding-top: var(--space-12);
+    padding-bottom: var(--space-12);
+  }
+  .faq__intro h2 {
+    font-size: var(--text-3xl);
+    margin-top: 12px;
+  }
+  .faq__intro p {
+    margin-top: 12px;
+    color: var(--text-secondary);
+    font-size: var(--text-md);
+  }
+  .faq__card {
+    background: var(--surface-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-sm);
+    padding: var(--space-8);
+  }
+  .faq__item {
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .faq__item:last-child {
+    border-bottom: none;
+  }
+  .faq__q {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    padding: var(--space-5) 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font-family: var(--font-sans);
+    font-size: var(--text-md);
+    font-weight: var(--weight-semibold);
+    color: var(--text-primary);
+  }
+  .faq__chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    flex: none;
+    border-radius: 50%;
+    background: var(--surface-muted);
+    color: var(--text-secondary);
+    transition: var(--transition-base);
+  }
+  .faq__chev {
+    transition: var(--transition-base);
+  }
+  .faq__panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 260ms var(--ease-out);
+  }
+  .faq__panel-inner {
+    overflow: hidden;
+  }
+  .faq__a {
+    padding-bottom: var(--space-5);
+    font-size: var(--text-base);
+    line-height: var(--leading-relaxed);
+    color: var(--text-secondary);
+    max-width: 70ch;
+  }
+
+  .faq__item.is-open .faq__panel {
+    grid-template-rows: 1fr;
+  }
+  .faq__item.is-open .faq__chip {
+    background: var(--color-brand);
+    color: #fff;
+  }
+  .faq__item.is-open .faq__chev {
+    transform: rotate(180deg);
+  }
+</style>

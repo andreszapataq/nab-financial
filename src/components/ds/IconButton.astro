@@ -1,0 +1,39 @@
+---
+/**
+ * Design-system IconButton — square 40px ghost button for the modal close.
+ */
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  icon: string;
+  label: string;
+  class?: string;
+  [key: string]: unknown;
+}
+
+const { icon, label, class: extraClass = '', ...rest } = Astro.props;
+---
+
+<button type="button" class={`ds-iconbtn ${extraClass}`.trim()} aria-label={label} {...rest}>
+  <Icon name={`lucide:${icon}`} width={20} height={20} aria-hidden="true" />
+</button>
+
+<style>
+  .ds-iconbtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: var(--radius-pill);
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: var(--transition-base);
+  }
+  .ds-iconbtn:hover {
+    background: var(--surface-muted);
+    color: var(--text-primary);
+  }
+</style>

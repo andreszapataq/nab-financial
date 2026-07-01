@@ -1,0 +1,130 @@
+---
+/**
+ * About — photo frame with an overlapping "15+ years" chip and a right column
+ * with a 2×2 grid of trust points.
+ */
+import { Icon } from 'astro-icon/components';
+import ImageFrame from './ImageFrame.astro';
+import { STR, DEFAULT_LANG } from '../i18n/strings';
+
+const t = STR[DEFAULT_LANG];
+---
+
+<section id="nosotros" class="about">
+  <div class="container about__grid nab-2col">
+    <div class="about__media" data-reveal>
+      <ImageFrame height={440} radius={22} parallax={0.06} hint="Foto de la oficina" />
+      <div class="about__chip">
+        <div class="about__chip-n">15+</div>
+        <div class="about__chip-sub" data-i18n="aboutChipSub">{t.aboutChipSub}</div>
+      </div>
+    </div>
+
+    <div data-stagger>
+      <span class="nab-eyebrow" data-reveal>
+        <span class="nab-chevron"></span><span data-i18n="aboutEyebrow">{t.aboutEyebrow}</span>
+      </span>
+      <h2 class="about__title" data-reveal data-i18n="aboutTitle">{t.aboutTitle}</h2>
+      <p class="about__body" data-reveal data-i18n="aboutBody">{t.aboutBody}</p>
+      <div class="about__points nab-2col" data-reveal>
+        {
+          t.points.map((p, i) => (
+            <div class="about__point">
+              <span class="about__point-icon" aria-hidden="true">
+                <Icon name={`lucide:${p.icon}`} width={22} height={22} />
+              </span>
+              <div>
+                <div class="about__point-t" data-i18n={`points.${i}.t`}>{p.t}</div>
+                <div class="about__point-d" data-i18n={`points.${i}.d`}>{p.d}</div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about {
+    background: var(--surface-subtle);
+  }
+  .about__grid {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: var(--space-10);
+    align-items: center;
+    padding-top: var(--space-12);
+    padding-bottom: var(--space-12);
+  }
+  .about__media {
+    position: relative;
+  }
+  .about__chip {
+    position: absolute;
+    right: -18px;
+    bottom: -18px;
+    background: var(--gradient-arrow);
+    color: #fff;
+    border-radius: var(--radius-lg);
+    padding: 18px 22px;
+    box-shadow: var(--shadow-lg);
+  }
+  .about__chip-n {
+    font-size: var(--text-4xl);
+    font-weight: 800;
+    line-height: 1;
+  }
+  .about__chip-sub {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    opacity: 0.92;
+  }
+  .about__title {
+    font-size: var(--text-3xl);
+    margin-top: 12px;
+  }
+  .about__body {
+    margin-top: 14px;
+    font-size: var(--text-lg);
+    color: var(--text-secondary);
+    max-width: 54ch;
+  }
+  .about__points {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+    margin-top: var(--space-8);
+  }
+  .about__point {
+    display: flex;
+    gap: 14px;
+  }
+  .about__point-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-md);
+    background: var(--surface-brand-subtle);
+    color: var(--color-brand-strong);
+  }
+  .about__point-t {
+    font-weight: 700;
+    font-size: var(--text-md);
+  }
+  .about__point-d {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-top: 2px;
+  }
+
+  @media (max-width: 640px) {
+    .about__chip {
+      right: 12px;
+    }
+  }
+</style>

@@ -1,0 +1,19 @@
+{
+  "name": "nab-financial-landing",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Bilingual marketing landing page for NAB Financial Consulting LLC",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^5.13.0",
+    "astro-icon": "^1.1.5",
+    "@iconify-json/lucide": "^1.2.66",
+    "@fontsource-variable/mulish": "^5.2.5"
+  }
+}

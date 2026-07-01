@@ -1,0 +1,98 @@
+---
+/**
+ * Design-system Input — label above, optional left icon, 10px radius,
+ * brand focus ring.
+ */
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  label: string;
+  labelKey?: string;
+  placeholder?: string;
+  placeholderKey?: string;
+  name: string;
+  type?: string;
+  iconLeft?: string;
+  required?: boolean;
+  autocomplete?: string;
+}
+
+const {
+  label,
+  labelKey,
+  placeholder,
+  placeholderKey,
+  name,
+  type = 'text',
+  iconLeft,
+  required = false,
+  autocomplete,
+} = Astro.props;
+const id = `field-${name}`;
+---
+
+<div class="ds-field">
+  <label class="ds-field__label" for={id} data-i18n={labelKey}>{label}</label>
+  <div class="ds-field__control">
+    {iconLeft && <Icon class="ds-field__icon" name={`lucide:${iconLeft}`} width={18} height={18} aria-hidden="true" />}
+    <input
+      id={id}
+      name={name}
+      type={type}
+      class={`ds-field__input${iconLeft ? ' ds-field__input--icon' : ''}`}
+      placeholder={placeholder}
+      data-i18n-placeholder={placeholderKey}
+      autocomplete={autocomplete}
+      required={required}
+    />
+  </div>
+</div>
+
+<style>
+  .ds-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+  }
+  .ds-field__label {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+  .ds-field__control {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  .ds-field__icon {
+    position: absolute;
+    left: 12px;
+    color: var(--text-muted);
+    pointer-events: none;
+  }
+  .ds-field__input {
+    width: 100%;
+    height: 46px;
+    padding: 0 14px;
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    color: var(--text-primary);
+    background: var(--surface-page);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-md);
+    transition: border-color var(--duration-base) var(--ease-out),
+      box-shadow var(--duration-base) var(--ease-out);
+  }
+  .ds-field__input--icon {
+    padding-left: 38px;
+  }
+  .ds-field__input::placeholder {
+    color: var(--text-disabled);
+  }
+  .ds-field__input:focus {
+    outline: none;
+    border-color: var(--color-brand);
+    box-shadow: var(--ring-brand);
+  }
+</style>

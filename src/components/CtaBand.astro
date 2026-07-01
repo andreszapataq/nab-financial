@@ -1,0 +1,77 @@
+---
+/**
+ * CTA band — full-width gradient panel with a watermark and two large CTAs.
+ */
+import Button from './ds/Button.astro';
+import { STR, DEFAULT_LANG } from '../i18n/strings';
+
+const t = STR[DEFAULT_LANG];
+---
+
+<section class="cta-section">
+  <div class="container">
+    <div class="band nab-band" data-reveal="scale">
+      <img src="/assets/nab-mark.svg" alt="" class="band__watermark" data-parallax="0.1" aria-hidden="true" />
+      <div class="band__text">
+        <h2 class="band__title" data-i18n="bandTitle">{t.bandTitle}</h2>
+        <p class="band__body" data-i18n="bandBody">{t.bandBody}</p>
+      </div>
+      <div class="band__ctas">
+        <Button size="lg" variant="secondary" iconRight="calendar" data-open-modal>
+          <span data-i18n="ctaBook">{t.ctaBook}</span>
+        </Button>
+        <Button size="lg" variant="ghost" iconLeft="phone" href="tel:+18328010188">
+          <span data-i18n="ctaCall">{t.ctaCall}</span>
+        </Button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-section {
+    padding-top: var(--space-10);
+    padding-bottom: var(--space-10);
+  }
+  .band {
+    position: relative;
+    overflow: hidden;
+    background: var(--gradient-arrow);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-11) var(--space-10);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-8);
+    box-shadow: var(--shadow-xl);
+  }
+  .band__watermark {
+    position: absolute;
+    right: -30px;
+    bottom: -50px;
+    height: 280px;
+    opacity: 0.16;
+  }
+  .band__text {
+    position: relative;
+    max-width: 60ch;
+  }
+  .band__title {
+    font-size: var(--text-3xl);
+    color: #fff;
+    letter-spacing: -0.02em;
+  }
+  .band__body {
+    margin-top: 12px;
+    font-size: var(--text-lg);
+    color: rgba(255, 255, 255, 0.92);
+  }
+  .band__ctas {
+    position: relative;
+    display: flex;
+    gap: 12px;
+    flex: none;
+    flex-wrap: wrap;
+  }
+</style>
