@@ -62,11 +62,19 @@ const t = STR[DEFAULT_LANG];
     color: #fff;
     letter-spacing: -0.02em;
   }
-  /* Keep the heading on a single line while the band is horizontal;
-     below 640px the band stacks and the title wraps normally. */
-  @media (min-width: 641px) {
+  /* Keep the heading on a single line only while the band is horizontal
+     (desktop). Below 980px the band stacks and the title wraps normally. */
+  @media (min-width: 981px) {
     .band__title {
       white-space: nowrap;
+    }
+  }
+  /* Tablet / mobile: stack text over CTAs so the buttons never get pushed off
+     the right edge by the fixed-width (flex:none) CTA cluster. */
+  @media (max-width: 980px) {
+    .band {
+      flex-direction: column;
+      align-items: flex-start;
     }
   }
   .band__body {

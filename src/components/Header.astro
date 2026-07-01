@@ -2,6 +2,9 @@
 /**
  * Sticky, blurred header — logo left; nav links, phone, ES/EN toggle and the
  * primary "Book appointment" CTA clustered right.
+ *
+ * Below 860px the desktop nav + CTA collapse into a hamburger that toggles the
+ * full-width `.mobile-menu` panel (section links + click-to-call + CTA).
  */
 import { Icon } from 'astro-icon/components';
 import Button from './ds/Button.astro';
@@ -29,12 +32,44 @@ const t = STR[DEFAULT_LANG];
         <button type="button" class="lang-toggle__btn is-active" data-lang="es">ES</button>
         <button type="button" class="lang-toggle__btn" data-lang="en">EN</button>
       </div>
-      <Button size="sm" iconRight="calendar" data-open-modal>
-        <span data-i18n="ctaBook">{t.ctaBook}</span>
-      </Button>
+      <div class="site-header__cta">
+        <Button size="sm" iconRight="calendar" data-open-modal>
+          <span data-i18n="ctaBook">{t.ctaBook}</span>
+        </Button>
+      </div>
+      <button
+        type="button"
+        class="nav-toggle"
+        data-menu-toggle
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Menú"
+      >
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+      </button>
     </div>
   </div>
 </header>
+
+<!-- Rendered as a sibling of <header> on purpose: the header's backdrop-filter
+     makes it the containing block for position:fixed descendants, which would
+     collapse this full-height scrim. -->
+<div id="mobile-menu" class="mobile-menu" data-mobile-menu hidden>
+  <nav class="container mobile-menu__nav" aria-label="Mobile">
+    <a href="#servicios" class="mobile-menu__link" data-i18n="navServices" data-mobile-link>{t.navServices}</a>
+    <a href="#nosotros" class="mobile-menu__link" data-i18n="navAbout" data-mobile-link>{t.navAbout}</a>
+    <a href="#opiniones" class="mobile-menu__link" data-i18n="navReviews" data-mobile-link>{t.navReviews}</a>
+    <a href="#preguntas" class="mobile-menu__link" data-i18n="navFaq" data-mobile-link>{t.navFaq}</a>
+    <a href="tel:+18328010188" class="mobile-menu__phone" data-mobile-link>
+      <Icon name="lucide:phone" width={20} height={20} aria-hidden="true" />(832) 801-0188
+    </a>
+    <Button size="lg" iconRight="calendar" fullWidth data-open-modal>
+      <span data-i18n="ctaBook">{t.ctaBook}</span>
+    </Button>
+  </nav>
+</div>
 
 <script>
   // The sticky <header> also owns id="top", so a plain #top anchor lands on an
@@ -45,6 +80,54 @@ const t = STR[DEFAULT_LANG];
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
   });
+
+  // Mobile menu — hamburger toggles the full-width panel.
+  (() => {
+    const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+    const menu = document.querySelector<HTMLElement>('[data-mobile-menu]');
+    if (!toggle || !menu) return;
+
+    const modal = document.querySelector<HTMLElement>('[data-modal]');
+    const isOpen = () => toggle.getAttribute('aria-expanded') === 'true';
+
+    const setOpen = (open: boolean) => {
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.classList.toggle('is-open', open);
+      if (open) {
+        menu.removeAttribute('hidden');
+        requestAnimationFrame(() => menu.classList.add('is-open'));
+        document.body.style.overflow = 'hidden';
+      } else {
+        menu.classList.remove('is-open');
+        // Leave the scroll lock in place if the contact modal is what's open
+        // now (a menu CTA can hand off to it).
+        if (!modal || modal.hasAttribute('hidden')) document.body.style.overflow = '';
+        const done = () => {
+          menu.setAttribute('hidden', '');
+          menu.removeEventListener('transitionend', done);
+        };
+        menu.addEventListener('transitionend', done);
+        setTimeout(() => menu.hasAttribute('hidden') || menu.setAttribute('hidden', ''), 320);
+      }
+    };
+
+    toggle.addEventListener('click', () => setOpen(!isOpen()));
+    // Tapping the dimmed scrim (outside the white panel) closes the menu.
+    menu.addEventListener('click', (e) => {
+      if (e.target === menu) setOpen(false);
+    });
+    // Any link or the CTA closes the menu (the CTA also opens the modal).
+    menu.querySelectorAll<HTMLElement>('[data-mobile-link], [data-open-modal]').forEach((el) => {
+      el.addEventListener('click', () => setOpen(false));
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isOpen()) setOpen(false);
+    });
+    // Resizing up to the desktop layout dismisses a stale open panel.
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 860 && isOpen()) setOpen(false);
+    });
+  })();
 </script>
 
 <style>
@@ -123,5 +206,111 @@ const t = STR[DEFAULT_LANG];
     background: #fff;
     color: var(--text-brand);
     box-shadow: var(--shadow-xs);
+  }
+
+  /* ---- Hamburger (mobile / tablet only) ---- */
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    flex: none;
+  }
+  .nav-toggle__bar {
+    width: 24px;
+    height: 2px;
+    margin: 0 auto;
+    border-radius: 2px;
+    background: var(--text-primary);
+    transition: transform var(--duration-base) var(--ease-out),
+      opacity var(--duration-fast) var(--ease-out);
+  }
+  .nav-toggle.is-open .nav-toggle__bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .nav-toggle.is-open .nav-toggle__bar:nth-child(2) {
+    opacity: 0;
+  }
+  .nav-toggle.is-open .nav-toggle__bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* ---- Mobile menu ---- */
+  /* Full-height scrim that dims the page; the white panel drops from the top
+     and clicking the dimmed area closes the menu. */
+  .mobile-menu {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 40;
+    overflow-y: auto;
+    background: rgba(11, 14, 13, 0.4);
+    opacity: 0;
+    transition: opacity var(--duration-base) var(--ease-out);
+  }
+  .mobile-menu.is-open {
+    opacity: 1;
+  }
+  .mobile-menu[hidden] {
+    display: none;
+  }
+  .mobile-menu__nav {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-bottom: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-lg);
+    padding-top: var(--space-5);
+    padding-bottom: var(--space-7);
+    transform: translateY(-12px);
+    transition: transform var(--duration-base) var(--ease-out);
+  }
+  .mobile-menu.is-open .mobile-menu__nav {
+    transform: none;
+  }
+  .mobile-menu__link,
+  .mobile-menu__phone {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 2px;
+    font-size: var(--text-lg);
+    font-weight: var(--weight-semibold);
+    text-decoration: none;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .mobile-menu__link:hover {
+    color: var(--text-brand);
+  }
+  .mobile-menu__phone {
+    color: var(--text-brand);
+  }
+  .mobile-menu__nav :global(.ds-btn) {
+    margin-top: var(--space-6);
+  }
+
+  @media (max-width: 860px) {
+    .site-header__cta {
+      display: none;
+    }
+    .nav-toggle {
+      display: flex;
+    }
+  }
+
+  /* Never leak the mobile panel into the desktop layout. */
+  @media (min-width: 861px) {
+    .mobile-menu {
+      display: none !important;
+    }
   }
 </style>
