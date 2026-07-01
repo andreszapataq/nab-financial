@@ -12,8 +12,15 @@ const t = STR[DEFAULT_LANG];
 
 <section id="nosotros" class="about">
   <div class="container about__grid nab-2col">
-    <div class="about__media" data-reveal>
-      <ImageFrame height={440} radius={22} parallax={0.06} hint="Foto de la oficina" />
+    <div class="about__media" data-reveal="left">
+      <ImageFrame
+        height={440}
+        radius={22}
+        parallax={0.06}
+        src="/assets/about.jpg"
+        srcset="/assets/about.jpg 1x, /assets/about@2x.jpg 2x"
+        alt="Oficina de NAB Financial Consulting en Houston, TX"
+      />
       <div class="about__chip">
         <div class="about__chip-n">15+</div>
         <div class="about__chip-sub" data-i18n="aboutChipSub">{t.aboutChipSub}</div>

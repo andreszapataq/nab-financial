@@ -38,6 +38,10 @@ const t = STR[DEFAULT_LANG];
     flex-direction: column;
     gap: 4px;
     align-items: center;
+    transition: transform var(--duration-base) var(--ease-out);
+  }
+  .trust__item:hover {
+    transform: translateY(-2px);
   }
   .trust__value {
     font-size: var(--text-4xl);
@@ -45,6 +49,10 @@ const t = STR[DEFAULT_LANG];
     line-height: 1;
     letter-spacing: -0.02em;
     color: #fff;
+    transition: color var(--duration-base) var(--ease-out);
+  }
+  .trust__item:hover .trust__value {
+    color: var(--color-brand);
   }
   .trust__label {
     font-size: var(--text-sm);

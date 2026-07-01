@@ -171,8 +171,15 @@ const prefersReduced = (): boolean => {
 };
 
 function initReveal(): void {
-  if (prefersReduced() || !('IntersectionObserver' in window)) return;
   const show = (el: Element) => el.setAttribute('data-shown', '');
+
+  // No IntersectionObserver → reveal everything up front so nothing stays
+  // stuck at opacity:0. Reduced-motion is handled by CSS (forces visible).
+  if (!('IntersectionObserver' in window)) {
+    document.querySelectorAll('[data-reveal]').forEach(show);
+    return;
+  }
+  if (prefersReduced()) return;
 
   const io = new IntersectionObserver(
     (entries, obs) => {
@@ -184,7 +191,8 @@ function initReveal(): void {
             (k) => k.closest('[data-stagger]') === el,
           );
           kids.forEach((k, i) => {
-            k.style.transitionDelay = `${i * 95}ms`;
+            // Subtle stagger, capped so large groups (6 services / FAQ) don't drag.
+            k.style.transitionDelay = `${Math.min(i, 8) * 80}ms`;
             show(k);
           });
         } else {
@@ -193,18 +201,13 @@ function initReveal(): void {
         obs.unobserve(el);
       });
     },
-    { threshold: 0.12, rootMargin: '0px 0px -8% 0px' },
+    { threshold: 0.12, rootMargin: '0px 0px -12% 0px' },
   );
 
   document.querySelectorAll('[data-stagger]').forEach((s) => io.observe(s));
   document.querySelectorAll('[data-reveal]').forEach((el) => {
     if (!el.closest('[data-stagger]')) io.observe(el);
   });
-
-  // Failsafe: reveal anything still hidden after ~2.8s.
-  setTimeout(() => {
-    document.querySelectorAll('[data-reveal]:not([data-shown])').forEach(show);
-  }, 2800);
 }
 
 /* ------------------------------------------------------------------ *

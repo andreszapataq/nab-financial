@@ -116,18 +116,33 @@ section {
    ============================================================ */
 [data-reveal] {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 540ms var(--ease-out), transform 540ms var(--ease-out);
+  transform: translateY(22px);
+  filter: blur(6px);
+  transition: opacity 640ms var(--ease-out), transform 640ms var(--ease-out),
+    filter 640ms var(--ease-out);
   will-change: opacity, transform;
 }
 
+[data-reveal='left'] {
+  transform: translateX(-34px);
+}
+
+[data-reveal='right'] {
+  transform: translateX(34px);
+}
+
 [data-reveal='scale'] {
-  transform: scale(0.95);
+  transform: scale(0.94);
+}
+
+[data-reveal='fade'] {
+  transform: none;
 }
 
 [data-reveal][data-shown] {
   opacity: 1;
   transform: none;
+  filter: none;
 }
 
 [data-parallax] {
@@ -141,6 +156,7 @@ section {
   [data-reveal] {
     opacity: 1 !important;
     transform: none !important;
+    filter: none !important;
     transition: none !important;
   }
   [data-parallax] {

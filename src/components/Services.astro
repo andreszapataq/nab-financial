@@ -107,6 +107,10 @@ const t = STR[DEFAULT_LANG];
     display: flex;
     flex-direction: column;
     gap: var(--space-5);
+    transition: box-shadow var(--duration-base) var(--ease-out);
+  }
+  .feat__card:hover {
+    box-shadow: var(--shadow-lg);
   }
   .feat__title {
     font-size: var(--text-2xl);
@@ -152,6 +156,10 @@ const t = STR[DEFAULT_LANG];
     justify-content: space-between;
     box-shadow: var(--shadow-lg);
     min-height: 320px;
+    transition: box-shadow var(--duration-base) var(--ease-out);
+  }
+  .feat__panel:hover {
+    box-shadow: var(--shadow-xl);
   }
   .feat__watermark {
     position: absolute;

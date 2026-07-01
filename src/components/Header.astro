@@ -12,7 +12,7 @@ const t = STR[DEFAULT_LANG];
 
 <header id="top" class="site-header">
   <div class="container site-header__bar">
-    <a href="#top" class="site-header__logo" aria-label="NAB Financial Consulting">
+    <a href="#top" data-scroll-top class="site-header__logo" aria-label="NAB Financial Consulting">
       <img src="/assets/nab-logo-cropped.svg" alt="NAB Financial Consulting" height="52" />
     </a>
     <div class="site-header__right">
@@ -35,6 +35,17 @@ const t = STR[DEFAULT_LANG];
     </div>
   </div>
 </header>
+
+<script>
+  // The sticky <header> also owns id="top", so a plain #top anchor lands on an
+  // element that's already pinned to the viewport and barely scrolls. Force the
+  // logo to jump to the real top of the page instead.
+  document.querySelector('[data-scroll-top]')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+  });
+</script>
 
 <style>
   .site-header {

@@ -70,6 +70,12 @@ const t = STR[DEFAULT_LANG];
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-sm);
     padding: var(--space-7);
+    transition: transform var(--duration-base) var(--ease-out),
+      box-shadow var(--duration-base) var(--ease-out);
+  }
+  .voice:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
   }
   .voice__stars {
     display: flex;
