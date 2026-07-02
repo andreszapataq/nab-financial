@@ -21,6 +21,7 @@ interface Props {
   srcset?: string;
   placeholder?: string;
   hint?: string;
+  objectPosition?: string;
 }
 
 const {
@@ -32,6 +33,7 @@ const {
   srcset,
   placeholder = 'Foto',
   hint,
+  objectPosition,
 } = Astro.props;
 const innerHeight = height + 88;
 ---
@@ -40,7 +42,7 @@ const innerHeight = height + 88;
   <div class="frame__inner" data-parallax={parallax} style={`height:${innerHeight}px;`}>
     {
       src ? (
-        <img src={src} srcset={srcset} alt={alt} loading="lazy" decoding="async" />
+        <img src={src} srcset={srcset} alt={alt} loading="lazy" decoding="async" style={objectPosition ? `object-position:${objectPosition};` : undefined} />
       ) : (
         <div class="frame__placeholder">
           <Icon name="lucide:image" width={30} height={30} aria-hidden="true" />
